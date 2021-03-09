@@ -46,23 +46,16 @@ pub fn set_shortcut_args(args: &str) -> Result<(), Box<dyn Error>> {
     let lnk_path = unsafe { WideCStr::from_ptr_str(startup_info.lpTitle) };
     let lnk_path = lnk_path.to_string()?;
 
-    let lnk = ShellLink::open(&lnk_path).map_err(|e| format!("Error 1: {:?}", e))?;
+    let lnk = ShellLink::open(&lnk_path).map_err(|e| format!("{:?}", e))?;
 
     let target = lnk.relative_path().as_ref().ok_or("No target")?;
 
     let target_path = Path::new(&lnk_path)
         .parent()
         .ok_or("Unable to get link folder")?
-        .join(target)
-        .canonicalize()?
-        .to_str()
-        .ok_or("Faild to construct path")?
-        .replace("\\", "/")
-        .trim_start_matches("//?/")
-        .to_string();
+        .join(target);
 
-    let mut new_lnk =
-        ShellLink::new_simple(target_path).map_err(|e| format!("Error 2: {:?}", e))?;
+    let mut new_lnk = ShellLink::new_simple(target_path).map_err(|e| format!("{:?}", e))?;
 
     new_lnk.set_arguments(Some(args.to_string()));
 

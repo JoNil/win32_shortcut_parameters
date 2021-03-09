@@ -507,8 +507,7 @@ checksum = "03b07a082330a35e43f63177cc01689da34fbffa0105e1246cf0311472cac73a"
 [[package]]
 name = "lnk"
 version = "0.3.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "5afc3411d4a446db17a7fe5ac533219236067c26de38903f88c308f8200322b2"
+source = "git+https://github.com/lilopkins/lnk-rs.git?branch=develop#0c1e3564ef78a7ce57063f569dfa25e6e1625c25"
 dependencies = [
  "bitflags",
  "byteorder",
